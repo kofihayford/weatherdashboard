@@ -30,17 +30,26 @@ WHEN I open the weather dashboard
 THEN I am presented with the last searched city forecast
 ```
 
-The following image demonstrates the application functionality:
+The following image demonstrates My Dashboard's functionality:
 
-![weather dashboard demo](./Assets/06-server-side-apis-homework-demo.png)
+![weather dashboard demo](./Assets/TBD)
 
-## Review
+## Steps I Toook in Building this App 
+Build basic HTML skeleton
+Connect Bootstrap CSS for overall style
+Create CSS and Javascript Files 
+Connect them to HTML
+Search for and select an API - Accuweather API 
+Breakdown, the Location, Search, Current weather and Future Weather 
 
-You are required to submit the following for review:
 
-* The URL of the deployed application.
 
-* The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
+## Technologies Used
 
-- - -
-© 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+
+
+## Future Development Opportunities 
+
+
+
+
