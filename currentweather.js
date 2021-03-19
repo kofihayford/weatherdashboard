@@ -1,6 +1,6 @@
 const key = "BIeUy48ueRxIJSGJAxmUNi7Y8stJrK3Z"
 
-// Create a function to execute the API
+// Create a function to execute the API and search for the city
 const citySearch = async () => {
 
     // Creating a variable for the link to the search function 
@@ -15,5 +15,5 @@ const citySearch = async () => {
     console.log(data);
 
 };
-
-citySearch()
+//Call the City Search Function
+citySearch('NewYork')
