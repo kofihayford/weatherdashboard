@@ -26,11 +26,11 @@ $(document).ready(function () {
         let lat;
         let long;
         fiveDayForecast.empty()
-        console.log(searchCity.val(), 'this is jquery')
+        console.log(searchCity.val(), 'this is jquery');
         //set searchCity to city to instruct system to insert the value typed and submitted by search button into the empty city string
         city = searchCity.val();
-        console.log(city)
-        // console.log(searchCity.val())
+        console.log(city);
+        console.log(searchCity.val())
         //use fetch to capture 
         fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${kofisAPIkey}`)
             .then((res) => {
@@ -51,8 +51,8 @@ $(document).ready(function () {
                     //used console log to make sure that the data is being collected. Changed it to res.json to now actually send through to get data back. 
                     return res.json()
                 }).then((json) => {
-                    insertWeatherData(json.current.temp, json.current.humidity, json.current.uvi, json.current.wind_speed)
-                    futureForecast(json.daily)
+                    insertWeatherData(json.current.temp, json.current.humidity, json.current.uvi, json.current.wind_speed);
+                    futureForecast(json.daily);
                 })
                 .catch((err) => {
                     //used catch to figure out the error that was happening. 
@@ -65,9 +65,9 @@ $(document).ready(function () {
 
     function insertWeatherData(temp, hum, wind, uvi) {
         currentTemperature.append(temp);
-        currentHumidty.append(hum)
-        currentWSpeed.append(wind)
-        currentUvindex.append(uvi)
+        currentHumidty.append(hum);
+        currentWSpeed.append(wind);
+        currentUvindex.append(uvi);
 
     }
 
@@ -84,8 +84,8 @@ $(document).ready(function () {
             <p>Temp:<span id="fTemp0">${info.temp.day}</span></p>
             <p>Humidity:<span id="fHumidity0">${info.humidity}</span></p>
         </div>`
-                console.log(temp, 'this our temp')
-                fiveDayForecast.append(temp)
+                console.log(temp, 'this our temp');
+                fiveDayForecast.append(temp);
             }
         })
     }
