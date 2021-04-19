@@ -11,7 +11,7 @@ $(document).ready(function () {
     let searchCity = $("#search-city");
     let searchButton = $("#search-button");
     let clearButton = $("#clear-history");
-    let currentCity = $("#current-city");
+    let currentCity = $("#search-city");
     let currentTemperature = $("#temperature");
     let currentHumidty = $("#humidity");
     let currentWSpeed = $("#wind-speed");
@@ -20,7 +20,7 @@ $(document).ready(function () {
     let fiveDayForecast = $("#fiveDayForecastAll");
     let searchList = $(".list-group");
 
-    // searches the city to see if it exists in the entries from the storage. Create funnction for click button
+    // searches the city to see if it exists in the entries from the storage. Create function for click button
     searchButton.click(function (event) {
         event.preventDefault();
         let lat;
@@ -41,25 +41,24 @@ $(document).ready(function () {
                 cityName = json[0].name;
                 captureSearch(cityName)
                 console.log(json)
+                fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${kofisAPIkey}`)
+                    .then((res) => {
+                        //used console log to make sure that the data is being collected. Changed it to res.json to now actually send through to get data back. 
+                        return res.json()
+                    }).then((json) => {
+                        insertWeatherData(json.current.name, json.current.temp, json.current.humidity, json.current.uvi, json.current.wind_speed);
+                        futureForecast(json.daily);
+                    })
+                    .catch((err) => {
+                        //used catch to figure out the error that was happening. 
+                        console.log(err)
+                    })
+
+
             }).catch((err) => {
                 console.log(err)
             })
         //used setTimeout because I got an error due to the fact that the API calls were firing of simulatneously. By delaying it, it now works fine. 
-        setTimeout(() => {
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${kofisAPIkey}`)
-                .then((res) => {
-                    //used console log to make sure that the data is being collected. Changed it to res.json to now actually send through to get data back. 
-                    return res.json()
-                }).then((json) => {
-                    insertWeatherData(json.current.temp, json.current.humidity, json.current.uvi, json.current.wind_speed);
-                    futureForecast(json.daily);
-                })
-                .catch((err) => {
-                    //used catch to figure out the error that was happening. 
-                    console.log(err)
-                })
-            //changed the lenght of the timeout gradually down to ensure good rersponsiveness but prevent API requests colliding 
-        }, 50);
 
     })
 
