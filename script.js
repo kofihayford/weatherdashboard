@@ -16,7 +16,7 @@ $(document).ready(function () {
     let currentHumidty = $("#humidity");
     let currentWSpeed = $("#wind-speed");
     let currentUvindex = $("#uv-index");
-    let sCity = [...JSON.parse(prevCities)];
+    let sCity = [JSON.parse(prevCities)];
     let fiveDayForecast = $("#fiveDayForecastAll");
     let searchList = $(".list-group");
 
