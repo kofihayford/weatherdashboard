@@ -38,7 +38,7 @@ $(document).ready(function () {
         console.log("console log 2: ", city);
         console.log("console log 3: ", searchCity.val())
         //use fetch to capture 
-        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${kofisAPIkey}`)
+        fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${kofisAPIkey}`)
             .then((res) => {
                 return res.json()
             }).then((json) => {
@@ -47,7 +47,7 @@ $(document).ready(function () {
                 cityName = json[0].name;
                 captureSearch(cityName)
                 console.log(json)
-                fetch(`http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${kofisAPIkey}`)
+                fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${kofisAPIkey}`)
                     .then((res) => {
                         //used console log to make sure that the data is being collected. Changed it to res.json to now actually send through to get data back. 
                         return res.json()
