@@ -16,7 +16,7 @@ $(document).ready(function () {
     let currentHumidty = $("#humidity");
     let currentWSpeed = $("#wind-speed");
     let currentUvindex = $("#uv-index");
-    let sCity = [JSON.parse(prevCities)];
+    let sCity = ""
     let fiveDayForecast = $("#fiveDayForecastAll");
     let searchList = $(".list-group");
 
@@ -32,11 +32,11 @@ $(document).ready(function () {
         let lat;
         let long;
         fiveDayForecast.empty()
-        console.log(searchCity.val(), ': this is jquery');
+        console.log('this is jquery: ', searchCity.val());
         //set searchCity to city to instruct system to insert the value typed and submitted by search button into the empty city string
         city = searchCity.val();
-        console.log(city, "console log 2");
-        console.log(searchCity.val(), "console log 3")
+        console.log("console log 2: ", city);
+        console.log("console log 3: ", searchCity.val())
         //use fetch to capture 
         fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${kofisAPIkey}`)
             .then((res) => {
@@ -77,6 +77,8 @@ $(document).ready(function () {
     }
 
     function futureForecast(daily) {
+        sCity = [JSON.parse(prevCities)];
+
         // console.log(daily, 'this is our daily')
         //save time from having to call multiple times using map feature. 
 
@@ -89,14 +91,15 @@ $(document).ready(function () {
             <p>Temp:<span id="fTemp0">${info.temp.day}</span></p>
             <p>Humidity:<span id="fHumidity0">${info.humidity}</span></p>
         </div>`
-                console.log(temp, 'this our temp');
+                console.log('this our temp: ', temp);
                 fiveDayForecast.append(temp);
             }
         })
     }
 
-    console.log(sCity.length)
+    console.log("sCity Console Log: ", sCity);
     function captureSearch(city) {
+        sCity = [JSON.parse(prevCities)];
         sCity.push(city);
         localStorage.setItem(`cities`, JSON.stringify(sCity))
     }
