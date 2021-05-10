@@ -47,7 +47,7 @@ $(document).ready(function () {
                 cityName = json[0].name;
                 captureSearch(cityName)
                 console.log(json)
-                fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${kofisAPIkey}`)
+                fetch(`http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${kofisAPIkey}`)
                     .then((res) => {
                         //used console log to make sure that the data is being collected. Changed it to res.json to now actually send through to get data back. 
                         return res.json()
