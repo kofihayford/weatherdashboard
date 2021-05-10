@@ -20,9 +20,15 @@ $(document).ready(function () {
     let fiveDayForecast = $("#fiveDayForecastAll");
     let searchList = $(".list-group");
 
+
     // searches the city to see if it exists in the entries from the storage. Create function for click button
     searchButton.click(function (event) {
         event.preventDefault();
+        if (searchCity.val() === "") {
+            alert("Please enter a City");
+            searchCity.focus();
+            return;
+        }
         let lat;
         let long;
         fiveDayForecast.empty()
