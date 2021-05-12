@@ -16,10 +16,9 @@ $(document).ready(function () {
     let currentHumidty = $("#humidity");
     let currentWSpeed = $("#wind-speed");
     let currentUvindex = $("#uv-index");
-    let sCity = ""
+    let sCity = [...JSON.parse(prevCities)];
     let fiveDayForecast = $("#fiveDayForecastAll");
     let searchList = $(".list-group");
-
 
     // searches the city to see if it exists in the entries from the storage. Create function for click button
     searchButton.click(function (event) {
@@ -45,7 +44,7 @@ $(document).ready(function () {
                 lat = json[0].lat;
                 long = json[0].lon;
                 cityName = json[0].name;
-                captureSearch(cityName)
+
                 console.log(json)
                 fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=imperial&appid=${kofisAPIkey}`)
                     .then((res) => {
@@ -54,6 +53,7 @@ $(document).ready(function () {
                     }).then((json) => {
                         insertWeatherData(cityName, json.current.temp, json.current.humidity, json.current.uvi, json.current.wind_speed);
                         futureForecast(json.daily);
+                        captureSearch(cityName)
                     })
                     .catch((err) => {
                         //used catch to figure out the error that was happening. 
@@ -63,21 +63,24 @@ $(document).ready(function () {
                 console.log(err)
             })
 
-        //used setTimeout because I got an error due to the fact that the API calls were firing of simulatneously. By delaying it, it now works fine. 
-
     })
 
+
     function insertWeatherData(name, temp, hum, wind, uvi) {
+        currentCity.empty()
+        currentTemperature.empty();
+        currentHumidty.empty();
+        currentWSpeed.empty();
+        currentUvindex.empty();
         currentCity.append(name);
         currentTemperature.append(temp);
         currentHumidty.append(hum);
         currentWSpeed.append(wind);
         currentUvindex.append(uvi);
-
     }
 
     function futureForecast(daily) {
-        sCity = [JSON.parse(prevCities)];
+        // sCity = [...JSON.parse(prevCities)];
 
         // console.log(daily, 'this is our daily')
         //save time from having to call multiple times using map feature. 
@@ -97,15 +100,22 @@ $(document).ready(function () {
         })
     }
 
-    console.log("sCity Console Log: ", sCity);
+    console.log(sCity, 'this is our cities');
     function captureSearch(city) {
-        sCity = [JSON.parse(prevCities)];
+        // sCity = [...JSON.parse(prevCities)];
+
         sCity.push(city);
         localStorage.setItem(`cities`, JSON.stringify(sCity))
+    }
+
+
+    if (sCity.length == 0) {
+        localStorage.setItem(`cities`, JSON.stringify(['london']))
     }
     //USE if statement to capture the items that are coming through to local storage and have them display on the page in the right place. Save searches to local Storage and append them to a table.
     if (sCity.length !== 0) {
         sCity.map((index) => {
+            console.log(index, 'this is our index')
             let temp = `
         <li>
         <div class="col-3 col-md m-1 bg-secondary">
@@ -117,9 +127,11 @@ $(document).ready(function () {
             searchList.append(temp)
         })
     }
+
     // These saved items should be clickable and should then pull up current conditions for the appropriate city.
 
 })
+
 
 //Clear History button should reset all results including flushing local storage. 
 
